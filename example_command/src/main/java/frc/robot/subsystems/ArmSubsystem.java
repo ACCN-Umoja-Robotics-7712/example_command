@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
@@ -14,22 +15,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSubsystem extends SubsystemBase {
     SparkMax coralArmMotor;
-    DigitalInput armSensor = new DigitalInput(1);
-
+    RelativeEncoder armSensor;
     public ArmSubsystem() {
         coralArmMotor = new SparkMax(1, MotorType.kBrushless);
+        armSensor = coralArmMotor.getEncoder();
     }
 
     public void setArmSpeed(double speed) {
         coralArmMotor.set(speed);
     }
 
-    public boolean isGamePieceDetected() {
-        return !armSensor.get();
-    }
-
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Arm Sensor", isGamePieceDetected());
+        // SmartDashboard.putBoolean("Arm Sensor", isGamePieceDetected());
     }
 }
